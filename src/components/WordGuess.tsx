@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 const words = [
   'SRIVALLI', 'NAVYA', 'CHARAN', 'JHANSI',
   'GOWTHAMI', 'RISHITHA', 'RAKESH', 'VARSHIK',
-  'LOKESH', 'TEJ'
+  'LOKESH', 'TEJ', 'AMMU', 'SHALINI'
 ];
 
 const MAX_TRIES = 6;
