@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Sphere, Stars } from '@react-three/drei';
 import * as THREE from 'three';
-import { EffectComposer, Bloom, Glitch, Noise } from '@react-three/postprocessing';
 
 function AnimatedSpheres() {
   const group = useRef<THREE.Group>(null);
@@ -39,100 +38,6 @@ function AnimatedSpheres() {
   );
 }
 
-function FloatingParticles() {
-  const particles = useRef<THREE.Points>(null);
-
-  useFrame(({ clock }) => {
-    if (particles.current) {
-      particles.current.rotation.y = clock.getElapsedTime() * 0.1;
-    }
-  });
-
-  return (
-    <points ref={particles}>
-      <bufferGeometry attach="geometry">
-        <bufferAttribute
-          attach="attributes-position"
-          array={new Float32Array(
-            [...Array(3000)].flatMap(() => [
-              (Math.random() - 0.5) * 10,
-              (Math.random() - 0.5) * 10,
-              (Math.random() - 0.5) * 10,
-            ])
-          )}
-          count={3000}
-          itemSize={3}
-        />
-      </bufferGeometry>
-      <pointsMaterial color="#ffffff" size={0.02} />
-    </points>
-  );
-}
-
-function RotatingRings() {
-  const ringRef = useRef<THREE.Mesh>(null);
-
-  useFrame(({ clock }) => {
-    if (ringRef.current) {
-      ringRef.current.rotation.x = clock.getElapsedTime() * 0.2;
-      ringRef.current.rotation.z = clock.getElapsedTime() * 0.1;
-    }
-  });
-
-  return (
-    <mesh ref={ringRef}>
-      <torusBufferGeometry args={[2, 0.1, 16, 100]} />
-      <meshStandardMaterial color="cyan" emissive="blue" emissiveIntensity={0.5} />
-    </mesh>
-  );
-}
-
-function GradientBackground() {
-  const shaderRef = useRef<THREE.ShaderMaterial>(null);
-
-  useFrame(({ clock }) => {
-    if (shaderRef.current) {
-      shaderRef.current.uniforms.uTime.value = clock.getElapsedTime();
-    }
-  });
-
-  return (
-    <mesh>
-      <planeBufferGeometry args={[10, 10]} />
-      <shaderMaterial
-        ref={shaderRef}
-        uniforms={{
-          uTime: { value: 0 },
-        }}
-        vertexShader={`
-          varying vec2 vUv;
-          void main() {
-            vUv = uv;
-            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-          }
-        `}
-        fragmentShader={`
-          uniform float uTime;
-          varying vec2 vUv;
-          void main() {
-            gl_FragColor = vec4(sin(vUv.x * 3.14 + uTime) * 0.5 + 0.5, vUv.y, cos(vUv.y * 3.14 + uTime) * 0.5 + 0.5, 1.0);
-          }
-        `}
-      />
-    </mesh>
-  );
-}
-
-function PostProcessingEffects() {
-  return (
-    <EffectComposer>
-      <Bloom luminanceThreshold={0.3} luminanceSmoothing={0.9} intensity={1.5} />
-      <Noise opacity={0.2} />
-      <Glitch />
-    </EffectComposer>
-  );
-}
-
 export default function Background3D() {
   return (
     <div className="fixed inset-0 -z-10">
@@ -149,10 +54,6 @@ export default function Background3D() {
           speed={1}
         />
         <AnimatedSpheres />
-        <FloatingParticles />
-        <RotatingRings />
-        <GradientBackground />
-        <PostProcessingEffects />
       </Canvas>
     </div>
   );
