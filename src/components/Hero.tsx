@@ -64,7 +64,8 @@ export default function Hero() {
             transition={{ delay: 0.5 }}
             className="text-xl text-gray-600 mb-8"
           >
-            Full Stack Developer & Game Enthusiast
+            Why did the math book look so sad?
+Because it had too many problems!
           </motion.p>
           
           <motion.div 
