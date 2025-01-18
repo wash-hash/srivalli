@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const words = [
-  'REACT', 'TYPESCRIPT', 'JAVASCRIPT', 'PROGRAMMING',
-  'DEVELOPER', 'CODING', 'WEBSITE', 'FRONTEND',
-  'BACKEND', 'DATABASE', 'ALGORITHM', 'FUNCTION'
+  'SRIVALLI', 'NAVYA', 'CHARAN', 'JHANSI',
+  'GOWTHAMI', 'RISHITHA', 'RAKESH', 'VARSHIK',
+  'LOKESH', 'TEJ'
 ];
 
 const MAX_TRIES = 6;
